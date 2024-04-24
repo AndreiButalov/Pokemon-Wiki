@@ -52,13 +52,13 @@ async function init() {
         }
 
 
-        let poisen = document.getElementById(`poisen${i}`);
+        // let poisen = document.getElementById(`poisen${i}`);
         
-        if (json_pokemon['types'][1]['type']['name'] == true) {
-            poisen.innerHTML += `${json_pokemon['types'][1]['type']['name']}`;
-        } else {
-            poisen.innerHTML = 'hallo'
-        }
+        // if (json_pokemon['types'][1]['type']['name'] == true) {
+        //     poisen.innerHTML += `${json_pokemon['types'][1]['type']['name']}`;
+        // } else {
+        //     poisen.innerHTML = 'hallo'
+        // }
         
             
     }
