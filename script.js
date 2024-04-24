@@ -15,16 +15,24 @@ async function init() {
         let pokemon_image = `https://pokeapi.co/api/v2/pokemon/${results[i]['name']}`
         let pokemon_response = await fetch(pokemon_image);
         let json_pokemon = await pokemon_response.json();
-
-        // console.log(pokemon_response)
+        
+        
+        
+        
+        console.log()
         post.innerHTML += /*html*/ `            
-            <div class="start_app">
+            <div class="start_app" id="start">
                 <div class="pokemon_name">
                     ${results[i]['name']}
+                    ${json_pokemon['types'][0]['type']['name']}
                 </div>
                 <img src="${json_pokemon['sprites']['front_shiny']}" alt="">
             </div>
-        `;  
+            `;  
+        // if (json_pokemon['types'][0]['type']['name'] == "grass") {
+        //     document.getElementById('start').style = "background-color: green;";            
+        // }
+
     }
     
 
