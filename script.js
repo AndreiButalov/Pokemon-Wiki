@@ -14,49 +14,58 @@ async function init() {
 
         let pokemon = `https://pokeapi.co/api/v2/pokemon/${results[i]['name']}`
         let pokemon_response = await fetch(pokemon);
-        let json_pokemon = await pokemon_response.json();
-
-       
+        let json_pokemon = await pokemon_response.json();    
 
 
         // console.log(json_pokemon['sprites']['other']['dream_world']['front_default'])
       
         
         post.innerHTML += /*html*/ `            
-            <div class="start_app" id="start${i}" >
+            <div class="start_app" id="start${i}" onclick="getPokemonProfil('${encodeURIComponent(JSON.stringify(json_pokemon))}')">
                 <div class="pokemon_name">
                     <div>${results[i]['name']}</div>
-                    <div>${json_pokemon['types'][0]['type']['name']}</div>                
+                    <div>${json_pokemon['types'][0]['type']['name']}</div>
+                    <div id="poisen${i}"></div>              
                     <img src="${json_pokemon['sprites']['other']['dream_world']['front_default']}" alt="">
                 </div>
         `;  
 
-        if (json_pokemon['types'][0]['type']['name'] === "grass") {
-            document.getElementById(`start${i}`).style = 'background-color: lightgreen;'            
+
+        let startStyle = document.getElementById(`start${i}`);
+
+        switch (json_pokemon['types'][0]['type']['name']) {
+            case 'grass':
+                startStyle.style = 'background-color: lightgreen;';
+            break;
+            case 'fire':
+                startStyle.style = 'background-color: lightcoral;';
+                break;
+            case 'water':
+                startStyle.style = 'background-color: lightskyblue;';
+                break;
+                case 'bug':
+                    startStyle.style = 'background-color: rgb(217, 217, 40);';
+                break;
+            case 'normal':
+                startStyle.style = 'background-color: lightsalmon;';
+                break;
         }
 
-        if (json_pokemon['types'][0]['type']['name'] === "fire") {
-            document.getElementById(`start${i}`).style = 'background-color: lightcoral;'            
-        }
 
-        if (json_pokemon['types'][0]['type']['name'] === "water") {
-            document.getElementById(`start${i}`).style = 'background-color: lightskyblue;'            
+        let poisen = document.getElementById(`poisen${i}`);
+        
+        if (json_pokemon['types'][1]['type']['name'] == true) {
+            poisen.innerHTML += `${json_pokemon['types'][1]['type']['name']}`;
+        } else {
+            poisen.innerHTML = 'hallo'
         }
-
-        if (json_pokemon['types'][0]['type']['name'] === "bug") {
-            document.getElementById(`start${i}`).style = 'background-color: rgb(217, 217, 40);'            
-        }
-
-        if (json_pokemon['types'][0]['type']['name'] === "normal") {
-            document.getElementById(`start${i}`).style = 'background-color: lightsalmon;'            
-        }
-
-        //background-color: aqua;
+        
+            
     }
-    
         
         
-
+        
+        
 }
     
 
