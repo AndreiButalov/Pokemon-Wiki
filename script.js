@@ -23,7 +23,7 @@ async function init() {
       
         
         post.innerHTML += /*html*/ `            
-            <div class="start_app" id="start" onclick="getPokemonProfil('${encodeURIComponent(JSON.stringify(json_pokemon))}')">
+            <div class="start_app" id="start${i}" >
                 <div class="pokemon_name">
                     <div>${results[i]['name']}</div>
                     <div>${json_pokemon['types'][0]['type']['name']}</div>                
@@ -31,9 +31,27 @@ async function init() {
                 </div>
         `;  
 
-        // if (json_pokemon['types'][0]['type']['name'] === "grass") {
-        //     document.getElementById('start').classList.add("background_color");            
-        // }
+        if (json_pokemon['types'][0]['type']['name'] === "grass") {
+            document.getElementById(`start${i}`).style = 'background-color: lightgreen;'            
+        }
+
+        if (json_pokemon['types'][0]['type']['name'] === "fire") {
+            document.getElementById(`start${i}`).style = 'background-color: lightcoral;'            
+        }
+
+        if (json_pokemon['types'][0]['type']['name'] === "water") {
+            document.getElementById(`start${i}`).style = 'background-color: lightskyblue;'            
+        }
+
+        if (json_pokemon['types'][0]['type']['name'] === "bug") {
+            document.getElementById(`start${i}`).style = 'background-color: rgb(217, 217, 40);'            
+        }
+
+        if (json_pokemon['types'][0]['type']['name'] === "normal") {
+            document.getElementById(`start${i}`).style = 'background-color: lightsalmon;'            
+        }
+
+        //background-color: aqua;
     }
     
         
