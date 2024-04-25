@@ -19,6 +19,15 @@ body {
     width: 250px;
     height: 200px;
     border-radius: 10px;  
+    cursor: pointer;
+}
+
+.start_app:hover {
+    opacity: 0.8;
+}
+
+.d_none {
+    visibility: hidden;
 }
 
 .content {
@@ -58,5 +67,16 @@ body {
     bottom: 10px;
     right: 10px;
     color: lightsalmon
+}
+
+.show_pokemon {
+    width: 60%;
+    height: 400px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    background-color: white;
 }
 

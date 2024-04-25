@@ -18,7 +18,7 @@ async function init() {
                 <div>${results[i]['name'].capitalize()}</div>
                 <div>${json_pokemon['types'][0]['type']['name']}</div>
                 <div id="poison${i}"></div>              
-                <img src="${json_pokemon['sprites']['other']['dream_world']['front_default']}" alt="">
+                <img src="${json_pokemon['sprites']['other']['dream_world']['front_default']}">
                 </div>
                 `;  
 
@@ -51,18 +51,34 @@ async function init() {
         }
             
     }
-        
-}
 
+    
+    
+}
 
 
 String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
-    
 
 
 function getPokemonProfil(obj) {
     obj =  JSON.parse(decodeURIComponent(obj));
+    
+    // document.getElementById('main').classList.add('d_none');
+    let showPokemon = document.getElementById('show_pokemon');
+
     console.log(obj)
+    showPokemon.innerHTML = /*html*/ `
+        <div>
+            <h1>${obj['name']}</h1>
+            <img src="${obj['sprites']['other']['dream_world']['front_default']}">
+        </div>
+    `;
+
 }
+
+
+// function getPokemonProfil(obj, n , p) {
+//     show_pokemon.style.display = 'flex'
+// }
