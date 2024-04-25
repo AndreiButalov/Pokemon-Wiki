@@ -70,13 +70,16 @@ body {
 }
 
 .show_pokemon {
-    width: 60%;
-    height: 400px;
+    /* max-width: 400px; */
+    min-width: 50%;
+    height: 90%;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
     background-color: white;
+    visibility: hidden;
+    /* visibility: initial; */
 }
 

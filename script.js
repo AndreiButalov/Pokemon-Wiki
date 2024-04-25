@@ -65,8 +65,9 @@ String.prototype.capitalize = function() {
 function getPokemonProfil(obj) {
     obj =  JSON.parse(decodeURIComponent(obj));
     
-    // document.getElementById('main').classList.add('d_none');
     let showPokemon = document.getElementById('show_pokemon');
+
+    showPokemon.style.visibility = 'initial';
 
     console.log(obj)
     showPokemon.innerHTML = /*html*/ `
@@ -78,7 +79,3 @@ function getPokemonProfil(obj) {
 
 }
 
-
-// function getPokemonProfil(obj, n , p) {
-//     show_pokemon.style.display = 'flex'
-// }
