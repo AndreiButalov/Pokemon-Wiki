@@ -32,35 +32,11 @@ async function init() {
 
         let startStyle = document.getElementById(`start${i}`);
 
-        switch (json_pokemon['types'][0]['type']['name']) {
-            case 'grass':
-                startStyle.style = 'background-color: lightgreen;';
-            break;
-            case 'fire':
-                startStyle.style = 'background-color: lightcoral;';
-                break;
-            case 'water':
-                startStyle.style = 'background-color: lightskyblue;';
-                break;
-                case 'bug':
-                startStyle.style = 'background-color: rgb(217, 217, 40);';
-                break;
-            case 'normal':
-                startStyle.style = 'background-color: lightsalmon;';
-                break;
-        }
+        backgroundColor(json_pokemon, startStyle);       
             
-    }
-
-    
+    }    
     
 }
-
-
-String.prototype.capitalize = function() {
-    return this.charAt(0).toUpperCase() + this.slice(1);
-}
-
 
 function getPokemonProfil(obj) {
     obj =  JSON.parse(decodeURIComponent(obj));
@@ -71,11 +47,51 @@ function getPokemonProfil(obj) {
 
     console.log(obj)
     showPokemon.innerHTML = /*html*/ `
-        <div class="show_pokemon">
-            <h1>${obj['name']}</h1>
-            <img src="${obj['sprites']['other']['dream_world']['front_default']}">
+        <div class="show_pokemon" id="show_pokemon_backgroung">
+            <div class="show_pokemon_headline">
+                <button onclick="closeWindow()">X</button>
+                <h1>${obj['name']}</h1>
+                <img src="${obj['sprites']['other']['dream_world']['front_default']}">
+            </div>
+            <div class="show_pokemon_content">
+
+            </div>                  
         </div>
     `;
 
+    let show_pokemon_backgroung = document.getElementById('show_pokemon_backgroung');
+    backgroundColor(obj, show_pokemon_backgroung);
+
 }
 
+
+function closeWindow() {
+    let showPokemon = document.getElementById('show_pokemon');
+    showPokemon.style.visibility = 'hidden';
+}
+
+
+String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+
+function backgroundColor(json_pokemon ,id) {
+    switch (json_pokemon['types'][0]['type']['name']) {
+        case 'grass':
+            id.style = 'background-color: lightgreen;';
+        break;
+        case 'fire':
+            id.style = 'background-color: lightcoral;';
+            break;
+        case 'water':
+            id.style = 'background-color: lightskyblue;';
+            break;
+            case 'bug':
+            id.style = 'background-color: rgb(217, 217, 40);';
+            break;
+        case 'normal':
+            id.style = 'background-color: lightsalmon;';
+            break;
+    }
+}
