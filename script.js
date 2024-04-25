@@ -15,11 +15,14 @@ async function init() {
         post.innerHTML += /*html*/ `            
             <div class="start_app" id="start${i}" onclick="getPokemonProfil('${encodeURIComponent(JSON.stringify(json_pokemon))}')">
             <div class="pokemon_name">
-                <div>${results[i]['name'].capitalize()}</div>
-                <div>${json_pokemon['types'][0]['type']['name']}</div>
-                <div id="poison${i}"></div>              
-                <img src="${json_pokemon['sprites']['other']['dream_world']['front_default']}">
+                <h1>${results[i]['name'].capitalize()}</h1>
+                <div class="pokemon_name_title">
+                    <div class="pokemon_name_border">${json_pokemon['types'][0]['type']['name']}</div>
+                    <div class="pokemon_name_border" id="poison${i}"></div>   
                 </div>
+                           
+                <img src="${json_pokemon['sprites']['other']['dream_world']['front_default']}">
+            </div>
                 `;  
 
         let poison = document.getElementById(`poison${i}`);
@@ -27,6 +30,8 @@ async function init() {
 
         if (json_pokemon['types'].length == 2) {
             poison.innerHTML = 'poison'
+        }else {
+            poison.style = 'display: none;';
         }
 
 
