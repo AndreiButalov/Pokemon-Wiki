@@ -39,18 +39,20 @@ async function init() {
 }
 
 function getPokemonProfil(obj) {
-    obj =  JSON.parse(decodeURIComponent(obj));
-    
+    obj =  JSON.parse(decodeURIComponent(obj));    
     let showPokemon = document.getElementById('show_pokemon');
-
     showPokemon.style.visibility = 'initial';
 
-    console.log(obj)
     showPokemon.innerHTML = /*html*/ `
         <div class="show_pokemon" id="show_pokemon_backgroung">
             <div class="show_pokemon_headline">
                 <button onclick="closeWindow()">X</button>
-                <h1>${obj['name']}</h1>
+                <h1>${obj['name'].capitalize()}</h1>
+                <div class="show_pokemon_title">
+                    <h2 class="show_pokemon_name">${obj['types'][0]['type']['name']}<h2>
+                    <div class="show_pokemon_name" id="show_pokemon_poison"></div>
+                </div>
+                
                 <img src="${obj['sprites']['other']['dream_world']['front_default']}">
             </div>
             <div class="show_pokemon_content">
@@ -59,9 +61,16 @@ function getPokemonProfil(obj) {
         </div>
     `;
 
+    let show_pokemon_poison = document.getElementById('show_pokemon_poison');
+
+    if (obj['types'].length == 2) {
+        show_pokemon_poison.innerHTML = 'poison'
+    } else {
+        show_pokemon_poison.style = 'display: none;';
+    }
+
     let show_pokemon_backgroung = document.getElementById('show_pokemon_backgroung');
     backgroundColor(obj, show_pokemon_backgroung);
-
 }
 
 
