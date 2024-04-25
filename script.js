@@ -43,7 +43,7 @@ async function init() {
                 startStyle.style = 'background-color: lightskyblue;';
                 break;
                 case 'bug':
-                    startStyle.style = 'background-color: rgb(217, 217, 40);';
+                startStyle.style = 'background-color: rgb(217, 217, 40);';
                 break;
             case 'normal':
                 startStyle.style = 'background-color: lightsalmon;';
@@ -71,7 +71,7 @@ function getPokemonProfil(obj) {
 
     console.log(obj)
     showPokemon.innerHTML = /*html*/ `
-        <div>
+        <div class="show_pokemon">
             <h1>${obj['name']}</h1>
             <img src="${obj['sprites']['other']['dream_world']['front_default']}">
         </div>
