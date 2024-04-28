@@ -126,7 +126,7 @@ body {
     max-width: 250px;
     max-height: 250px;
     position: absolute;
-    top: 25%;
+    top: 35%;
     left: 50%;
     /* transform: translate(-50%, -50%); */
 }
