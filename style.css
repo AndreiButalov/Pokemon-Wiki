@@ -123,12 +123,13 @@ body {
 }
 
 .show_pokemon_headline img {
-    /* width: 20%; */
-    height: 200px;
+    width: 50%;
+    max-width: 250px;
+    max-height: 250px;
     position: absolute;
-    top: 75%;
+    top: 25%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    /* transform: translate(-50%, -50%); */
 }
 
 .show_pokemon_content {
