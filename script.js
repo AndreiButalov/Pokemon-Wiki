@@ -2,15 +2,13 @@ let arrPokemon = [];
 
 async function init() {
     let urlPokemon   = `https://pokeapi.co/api/v2/pokemon`;
-    let urlLimit = `https://pokeapi.co/api/v2/pokemon?offset=0&limit=30`;
+    let urlLimit = `https://pokeapi.co/api/v2/pokemon?offset=15&limit=30`;
     let response = await fetch(urlLimit);
     let responseAsJson = await response.json();
 
     let post = document.getElementById('post');
     let results = responseAsJson['results'];  
     
-    console.log(results)
-
     for (let i = 0; i < results.length; i++)  {
 
         let pokemon = `${urlPokemon}/${results[i]['name']}`;
@@ -26,8 +24,7 @@ async function init() {
                 <div class="pokemon_name_title">
                     <div class="pokemon_name_border">${json_pokemon['types'][0]['type']['name']}</div>
                     <div class="pokemon_name_border" id="poison${i}"></div>   
-                </div>
-                           
+                </div>                           
                 <img src="${json_pokemon['sprites']['other']['dream_world']['front_default']}">
             </div>
                 `;  
@@ -49,12 +46,13 @@ async function init() {
 }
 
 async function searchPokemon() {
-    let input = document.getElementById('input').value;    
+    let input = document.getElementById('input').value;  
     
     // let url = `https://pokeapi.co/api/v2/pokemon/${input.toLowerCase()}`;
+    let url = `https://pokeapi.co/api/v2/pokemon?offset=0&limit=30`;
     let response = await fetch(url);
     let responseAsJson = await response.json();
-    
+    console.log(responseAsJson)
     input.value = ''; 
     // getPokemonProfil(encodeURIComponent(JSON.stringify(responseAsJson)));
 }
