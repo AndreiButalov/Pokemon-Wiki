@@ -48,12 +48,16 @@ async function init() {
 async function searchPokemon() {
     let input = document.getElementById('input').value;    
     
-    let url = `https://pokeapi.co/api/v2/pokemon/${input.toLowerCase()}`;
+    // let url = `https://pokeapi.co/api/v2/pokemon/${input.toLowerCase()}`;
+    // let url = `https://pokeapi.co/api/v2/`;
+    // let url = `https://pokeapi.co/api/v2/berry-flavor/`;
     let response = await fetch(url);
     let responseAsJson = await response.json();
+
+    console.log(responseAsJson)
     
     input.value = ''; 
-    getPokemonProfil(encodeURIComponent(JSON.stringify(responseAsJson)));
+    // getPokemonProfil(encodeURIComponent(JSON.stringify(responseAsJson)));
 }
 
 

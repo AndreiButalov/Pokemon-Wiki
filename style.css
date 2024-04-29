@@ -149,9 +149,11 @@ body {
 }
 
 .show_pokemon_headline img {
-    width: 250px;
-    height: 250px;
-    margin-top: 120px;
+    /* width: 250px; */
+    /* max-height: 420px; */
+    max-width: 30%;
+    padding-top: 30px;
+    /* margin-top: 90px; */
     margin-right: 50px;
 }
 
