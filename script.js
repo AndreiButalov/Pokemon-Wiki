@@ -4,7 +4,7 @@ async function init() {
     let responseAsJson = await response.json();
 
     let post = document.getElementById('post');
-    let results = responseAsJson['results'];
+    let results = responseAsJson['results'];    
 
     for (let i = 0; i < results.length; i++)  {
 
@@ -43,6 +43,19 @@ async function init() {
     
 }
 
+
+async function searchPokemon() {
+    let input = document.getElementById('input').value;    
+    
+    let url = `https://pokeapi.co/api/v2/pokemon/${input.toLowerCase()}`;
+    let response = await fetch(url);
+    let responseAsJson = await response.json();
+    
+    getPokemonProfil(encodeURIComponent(JSON.stringify(responseAsJson)));
+    input.value = ''; 
+}
+
+
 function getPokemonProfil(obj) {
     obj =  JSON.parse(decodeURIComponent(obj));    
     let showPokemon = document.getElementById('show_pokemon');
@@ -51,11 +64,13 @@ function getPokemonProfil(obj) {
     showPokemon.innerHTML = /*html*/ `
         <div class="show_pokemon" id="show_pokemon_backgroung">
             <div class="show_pokemon_headline">
-                <button onclick="closeWindow()">X</button>
-                <h1>${obj['name'].capitalize()}</h1>
-                <div class="show_pokemon_title">
-                    <h2 class="show_pokemon_name">${obj['types'][0]['type']['name']}<h2>
-                    <div class="show_pokemon_name" id="show_pokemon_poison"></div>
+                <div>
+                    <button onclick="closeWindow()">X</button>
+                    <h1>${obj['name'].capitalize()}</h1>
+                    <div class="show_pokemon_title">
+                        <h2 class="show_pokemon_name">${obj['types'][0]['type']['name']}<h2>
+                        <div class="show_pokemon_name" id="show_pokemon_poison"></div>
+                    </div>
                 </div>
                 
                 <img src="${obj['sprites']['other']['dream_world']['front_default']}">
@@ -107,5 +122,7 @@ function backgroundColor(json_pokemon ,id) {
         case 'normal':
             id.style = 'background-color: lightsalmon;';
             break;
+        default:
+            id.style = 'background-color: lightblue;';
     }
 }
