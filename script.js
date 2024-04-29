@@ -8,7 +8,7 @@ async function init() {
 
     for (let i = 0; i < results.length; i++)  {
 
-        let pokemon = `https://pokeapi.co/api/v2/pokemon/${results[i]['name']}`
+        let pokemon = `${url}/${results[i]['name']}`;
         let pokemon_response = await fetch(pokemon);
         let json_pokemon = await pokemon_response.json();  
         
@@ -37,10 +37,8 @@ async function init() {
 
         let startStyle = document.getElementById(`start${i}`);
 
-        backgroundColor(json_pokemon, startStyle);       
-            
+        backgroundColor(json_pokemon, startStyle);      
     }    
-    
 }
 
 
@@ -51,8 +49,8 @@ async function searchPokemon() {
     let response = await fetch(url);
     let responseAsJson = await response.json();
     
-    getPokemonProfil(encodeURIComponent(JSON.stringify(responseAsJson)));
     input.value = ''; 
+    getPokemonProfil(encodeURIComponent(JSON.stringify(responseAsJson)));
 }
 
 
@@ -63,6 +61,8 @@ function getPokemonProfil(obj) {
 
     showPokemon.innerHTML = /*html*/ `
         <div class="show_pokemon" id="show_pokemon_backgroung">
+            <div class="arrow_left"><button class=" arrow_button" onclick="backPokemon('${encodeURIComponent(JSON.stringify(obj))}')"><</button></div>
+            <div class="arrow_right"><button class=" arrow_button" onclick="nextPokemon('${encodeURIComponent(JSON.stringify(obj))}')">></button></div>
             <div class="show_pokemon_headline">
                 <div>
                     <button onclick="closeWindow()">X</button>
@@ -126,3 +126,21 @@ function backgroundColor(json_pokemon ,id) {
             id.style = 'background-color: lightblue;';
     }
 }
+
+
+function nextPokemon(obj) {
+    obj =  JSON.parse(decodeURIComponent(obj));
+    console.log(obj)
+}
+
+
+// function backPokemon(i) {
+//     console.log(i);
+//     if(i == 0) {
+//         i = imageGe.length-1;
+//         showImage(i);
+//     } else {
+//         i--;
+//         showImage(i);
+//     }
+// }

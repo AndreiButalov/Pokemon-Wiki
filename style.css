@@ -42,7 +42,7 @@ body {
     font-weight: bold;
     margin-left: 10px;
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;    
 }
 
@@ -54,7 +54,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: start;
-    padding-top: 10px;
     font-size: 20px;
     padding-right: 150px;
     text-align: center;
@@ -84,6 +83,9 @@ body {
     min-width: 100%;
     height: 100%;
     position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -91,13 +93,30 @@ body {
     visibility: hidden;
 }
 
+.arrow_left {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+}
+
+.arrow_right {
+    position: absolute;
+    top: 50%;
+    right: 5%;
+}
+
+.arrow_button {
+    border: 0;
+    font-size: 22px;
+    font-weight: bold;
+    background-color: rgba(23, 31, 52, 0.1);
+    border-radius: 50%;
+}
+
 .show_pokemon {
     max-width: 700px;
     height: 95%;
     width: 90%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     position: fixed;
     border-radius: 30px;    
 }
