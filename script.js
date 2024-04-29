@@ -2,7 +2,7 @@ let arrPokemon = [];
 
 async function init() {
     let urlPokemon   = `https://pokeapi.co/api/v2/pokemon`;
-    let urlLimit = `https://pokeapi.co/api/v2/pokemon?offset=15&limit=30`;
+    let urlLimit = `https://pokeapi.co/api/v2/pokemon?offset=0&limit=30`;
     let response = await fetch(urlLimit);
     let responseAsJson = await response.json();
 
@@ -10,14 +10,58 @@ async function init() {
     let results = responseAsJson['results'];  
     
     for (let i = 0; i < results.length; i++)  {
+        // generateUrlPokemon(results, i, urlPokemon,post);
 
         let pokemon = `${urlPokemon}/${results[i]['name']}`;
-        let pokemon_response = await fetch(pokemon);
-        let json_pokemon = await pokemon_response.json();  
+    let pokemon_response = await fetch(pokemon);
+    let json_pokemon = await pokemon_response.json();  
 
-        arrPokemon.push(json_pokemon);
-        
-        post.innerHTML += /*html*/ `            
+    arrPokemon.push(json_pokemon);
+    
+    post.innerHTML += generateInitPokemon(i, results, json_pokemon);
+    
+    checkPoison(i,json_pokemon);      
+
+    let startStyle = document.getElementById(`start${i}`);
+
+    backgroundColor(json_pokemon, startStyle);
+              
+    }    
+}
+
+
+// async function generateUrlPokemon(results, i, urlPokemon, post) {
+//     let pokemon = `${urlPokemon}/${results[i]['name']}`;
+//     let pokemon_response = await fetch(pokemon);
+//     let json_pokemon = await pokemon_response.json();  
+
+//     arrPokemon.push(json_pokemon);
+    
+//     post.innerHTML += generateInitPokemon(i, results, json_pokemon);
+    
+//     checkPoison(i,json_pokemon);      
+
+//     let startStyle = document.getElementById(`start${i}`);
+
+//     backgroundColor(json_pokemon, startStyle);
+// }
+
+
+function checkPoison(i, json_pokemon) {
+
+    let poison = document.getElementById(`poison${i}`);
+
+    if (json_pokemon['types'].length == 2) {
+        poison.innerHTML = 'poison'
+    }else {
+        poison.style = 'display: none;';
+    }
+}
+
+
+function generateInitPokemon(i, results, json_pokemon) {
+    
+    return `            
             <div class="start_app" id="start${i}" onclick="getPokemonProfil(${i}, '${encodeURIComponent(JSON.stringify(arrPokemon))}')">
             <div class="pokemon_name">
                 <h1>${results[i]['name'].capitalize()}</h1>
@@ -27,23 +71,9 @@ async function init() {
                 </div>                           
                 <img src="${json_pokemon['sprites']['other']['dream_world']['front_default']}">
             </div>
-                `;  
-
-        let poison = document.getElementById(`poison${i}`);
-
-
-        if (json_pokemon['types'].length == 2) {
-            poison.innerHTML = 'poison'
-        }else {
-            poison.style = 'display: none;';
-        }
-
-
-        let startStyle = document.getElementById(`start${i}`);
-
-        backgroundColor(json_pokemon, startStyle);      
-    }    
+        `;
 }
+
 
 async function searchPokemon() {
     let input = document.getElementById('input').value;  
@@ -53,8 +83,8 @@ async function searchPokemon() {
     let response = await fetch(url);
     let responseAsJson = await response.json();
     console.log(responseAsJson)
-    input.value = ''; 
     // getPokemonProfil(encodeURIComponent(JSON.stringify(responseAsJson)));
+    input.value = ''; 
 }
 
 
