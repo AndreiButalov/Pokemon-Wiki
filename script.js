@@ -1,16 +1,19 @@
 let arrPokemon = [];
 
 async function init() {
-    let url = `https://pokeapi.co/api/v2/pokemon`;
-    let response = await fetch(url);
+    let urlPokemon   = `https://pokeapi.co/api/v2/pokemon`;
+    let urlLimit = `https://pokeapi.co/api/v2/pokemon?offset=0&limit=30`;
+    let response = await fetch(urlLimit);
     let responseAsJson = await response.json();
 
     let post = document.getElementById('post');
-    let results = responseAsJson['results'];    
+    let results = responseAsJson['results'];  
+    
+    console.log(results)
 
     for (let i = 0; i < results.length; i++)  {
 
-        let pokemon = `${url}/${results[i]['name']}`;
+        let pokemon = `${urlPokemon}/${results[i]['name']}`;
         let pokemon_response = await fetch(pokemon);
         let json_pokemon = await pokemon_response.json();  
 
@@ -49,12 +52,8 @@ async function searchPokemon() {
     let input = document.getElementById('input').value;    
     
     // let url = `https://pokeapi.co/api/v2/pokemon/${input.toLowerCase()}`;
-    // let url = `https://pokeapi.co/api/v2/`;
-    // let url = `https://pokeapi.co/api/v2/berry-flavor/`;
     let response = await fetch(url);
     let responseAsJson = await response.json();
-
-    console.log(responseAsJson)
     
     input.value = ''; 
     // getPokemonProfil(encodeURIComponent(JSON.stringify(responseAsJson)));
