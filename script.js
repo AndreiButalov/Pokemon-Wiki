@@ -1,3 +1,5 @@
+let arrPokemon = [];
+
 async function init() {
     let url = `https://pokeapi.co/api/v2/pokemon`;
     let response = await fetch(url);
@@ -11,9 +13,11 @@ async function init() {
         let pokemon = `${url}/${results[i]['name']}`;
         let pokemon_response = await fetch(pokemon);
         let json_pokemon = await pokemon_response.json();  
+
+        arrPokemon.push(json_pokemon);
         
         post.innerHTML += /*html*/ `            
-            <div class="start_app" id="start${i}" onclick="getPokemonProfil('${encodeURIComponent(JSON.stringify(json_pokemon))}')">
+            <div class="start_app" id="start${i}" onclick="getPokemonProfil(${i}, '${encodeURIComponent(JSON.stringify(arrPokemon))}')">
             <div class="pokemon_name">
                 <h1>${results[i]['name'].capitalize()}</h1>
                 <div class="pokemon_name_title">
@@ -41,7 +45,6 @@ async function init() {
     }    
 }
 
-
 async function searchPokemon() {
     let input = document.getElementById('input').value;    
     
@@ -54,15 +57,18 @@ async function searchPokemon() {
 }
 
 
-function getPokemonProfil(obj) {
-    obj =  JSON.parse(decodeURIComponent(obj));    
+function getPokemonProfil(i, arr) {
+    
+    arr =  JSON.parse(decodeURIComponent(arr));    
+
+    obj = arr[i];
     let showPokemon = document.getElementById('show_pokemon');
     showPokemon.style.visibility = 'initial';
 
     showPokemon.innerHTML = /*html*/ `
         <div class="show_pokemon" id="show_pokemon_backgroung">
-            <div class="arrow_left"><button class=" arrow_button" onclick="backPokemon('${encodeURIComponent(JSON.stringify(obj))}')"><</button></div>
-            <div class="arrow_right"><button class=" arrow_button" onclick="nextPokemon('${encodeURIComponent(JSON.stringify(obj))}')">></button></div>
+            <div class="arrow_left"><button class=" arrow_button" onclick="backPokemon(${i})"><</button></div>
+            <div class="arrow_right"><button class=" arrow_button" onclick="nextPokemon(${i})">></button></div>
             <div class="show_pokemon_headline">
                 <div>
                     <button onclick="closeWindow()">X</button>
@@ -94,15 +100,18 @@ function getPokemonProfil(obj) {
 }
 
 
+
 function closeWindow() {
     let showPokemon = document.getElementById('show_pokemon');
     showPokemon.style.visibility = 'hidden';
 }
 
 
+
 String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
+
 
 
 function backgroundColor(json_pokemon ,id) {
@@ -128,19 +137,25 @@ function backgroundColor(json_pokemon ,id) {
 }
 
 
-function nextPokemon(obj) {
-    obj =  JSON.parse(decodeURIComponent(obj));
-    console.log(obj)
+
+function nextPokemon(i) {
+    if (i == (arrPokemon.length - 1)) {
+        i = 0;
+        getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemon)));
+    }else {
+        i++;
+        getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemon)));
+    } 
 }
 
 
-// function backPokemon(i) {
-//     console.log(i);
-//     if(i == 0) {
-//         i = imageGe.length-1;
-//         showImage(i);
-//     } else {
-//         i--;
-//         showImage(i);
-//     }
-// }
+
+function backPokemon(i) {
+    if(i == 0) {
+        i = arrPokemon.length-1;
+        getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemon)));
+    } else {
+        i--;
+        getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemon)));
+    }
+}
