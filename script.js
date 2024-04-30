@@ -6,30 +6,30 @@ async function init() {
 }
 
 async function renderPokemon() {
-    let urlPokemon   = `https://pokeapi.co/api/v2/pokemon`;
+    let urlPokemon = `https://pokeapi.co/api/v2/pokemon`;
     let response = await fetch(urlPokemon);
     let responseAsJson = await response.json();
 
     let post = document.getElementById('post');
-    let results = responseAsJson['results'];  
-    
-    for (let i = 0; i < results.length; i++)  {
+    let results = responseAsJson['results'];
+
+    for (let i = 0; i < results.length; i++) {
 
         let pokemon = `${urlPokemon}/${results[i]['name']}`;
         let pokemon_response = await fetch(pokemon);
-        let json_pokemon = await pokemon_response.json();  
+        let json_pokemon = await pokemon_response.json();
 
         arrPokemon.push(json_pokemon);
-        
+
         post.innerHTML += generateInitPokemon(i, results);
-        
-        checkPoison(i,json_pokemon);      
+
+        checkPoison(i, json_pokemon);
 
         let startStyle = document.getElementById(`start${i}`);
 
         backgroundColor(json_pokemon, startStyle);
-              
-    }    
+
+    }
 }
 
 
@@ -39,14 +39,14 @@ function checkPoison(i, json_pokemon) {
 
     if (json_pokemon['types'].length == 2) {
         poison.innerHTML = 'poison'
-    }else {
+    } else {
         poison.style = 'display: none;';
     }
 }
 
 
 function generateInitPokemon(i, results) {
-    
+
     return `            
         <div class="start_app" id="start${i}" onclick="getPokemonProfil(${i}, '${encodeURIComponent(JSON.stringify(arrPokemon))}')">
         <div class="pokemon_name">
@@ -62,23 +62,23 @@ function generateInitPokemon(i, results) {
 
 
 function searchPokemon() {
-    let input = document.getElementById('input').value;  
+    let input = document.getElementById('input').value;
 
     for (let i = 0; i < arrPokemon.length; i++) {
         if (input.toLowerCase() == arrPokemon[i]['name']) {
-             getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemon)))
-        }else {
+            getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemon)))
+        } else {
 
         }
     }
-    
-    input.value = ''; 
+
+    input.value = '';
 }
 
 
 function getPokemonProfil(i, arr) {
-    
-    arr = JSON.parse(decodeURIComponent(arr));    
+
+    arr = JSON.parse(decodeURIComponent(arr));
 
     obj = arr[i];
 
@@ -97,11 +97,32 @@ function getPokemonProfil(i, arr) {
                         <h2 class="show_pokemon_name">${obj['types'][0]['type']['name']}<h2>
                         <div class="show_pokemon_name" id="show_pokemon_poison"></div>
                     </div>
-                </div>
-                
+                </div>                
                 <img src="${obj['sprites']['other']['dream_world']['front_default']}">
             </div>
-            <div class="show_pokemon_container">
+            
+            ${generateShowContent(i, encodeURIComponent(JSON.stringify(arr)))}
+        </div>          
+    `;
+    let show_pokemon_poison = document.getElementById('show_pokemon_poison');
+
+    if (obj['types'].length == 2) {
+        show_pokemon_poison.innerHTML = 'poison'
+    } else {
+        show_pokemon_poison.style = 'display: none;';
+    }
+
+    let show_pokemon_backgroung = document.getElementById('show_pokemon_backgroung');
+    backgroundColor(obj, show_pokemon_backgroung);
+}
+
+
+function generateShowContent(i, arr) {
+    arr = JSON.parse(decodeURIComponent(arr));
+    obj = arr[i];
+
+    return /*html*/ `
+        <div class="show_pokemon_container">
             <div class="content_links">
                 <a href="#">About</a>
                 <a href="#">Base Status</a>
@@ -119,7 +140,7 @@ function getPokemonProfil(i, arr) {
                         </tr>
                         <tr>
                             <td>Weght</td>
-                            <td>${obj['weight']/10} kg</td>
+                            <td>${obj['weight'] / 10} kg</td>
                         </tr>
                         <tr>
                             <td>Abilites</td>
@@ -151,80 +172,9 @@ function getPokemonProfil(i, arr) {
                     <canvas id="myChart"></canvas>
                 </div>  -->
             </div>
-        </div>          
         </div>
     `;
-//generateShowContent(i, encodeURIComponent(JSON.stringify(arr)))
-    let show_pokemon_poison = document.getElementById('show_pokemon_poison');
 
-    if (obj['types'].length == 2) {
-        show_pokemon_poison.innerHTML = 'poison'
-    } else {
-        show_pokemon_poison.style = 'display: none;';
-    }
-
-    let show_pokemon_backgroung = document.getElementById('show_pokemon_backgroung');
-    backgroundColor(obj, show_pokemon_backgroung);
-}
-
-
-function generateShowContent(i, arr) {
-    arr = JSON.parse(decodeURIComponent(arr));
-
-    console.log(arr);
-    return /*html*/`
-        <div class="show_pokemon_container">
-            <div class="content_links">
-                <a href="#">About</a>
-                <a href="#">Base Status</a>
-            </div>
-            <div class="show_pokemon_content">
-                <div>
-                    <table>
-                        <tr>
-                            <td>Species</td>
-                            <td></td>                       
-                        </tr>
-                        <tr>
-                            <td>Height</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Weght</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Abilites</td>
-                            <td></td>
-                        </tr>
-                    </table>
-                    <h1>Breeding</h1>
-                    <table>
-                        <tr>
-                            <td>Species</td>
-                            <td></td>                       
-                        </tr>
-                        <tr>
-                            <td>Height</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Weght</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Abilites</td>
-                            <td></td>
-                        </tr>
-                    </table>
-
-                </div>
-                <!-- <div>
-                    <canvas id="myChart"></canvas>
-                </div>  -->
-            </div>
-        </div> 
-    `;
 }
 
 
@@ -236,24 +186,24 @@ function closeWindow() {
 
 
 
-String.prototype.capitalize = function() {
+String.prototype.capitalize = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
 
 
 
-function backgroundColor(json_pokemon ,id) {
+function backgroundColor(json_pokemon, id) {
     switch (json_pokemon['types'][0]['type']['name']) {
         case 'grass':
             id.style = 'background-color: lightgreen;';
-        break;
+            break;
         case 'fire':
             id.style = 'background-color: lightcoral;';
             break;
         case 'water':
             id.style = 'background-color: lightskyblue;';
             break;
-            case 'bug':
+        case 'bug':
             id.style = 'background-color: rgb(217, 217, 40);';
             break;
         case 'normal':
@@ -270,17 +220,17 @@ function nextPokemon(i) {
     if (i == (arrPokemon.length - 1)) {
         i = 0;
         getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemon)));
-    }else {
+    } else {
         i++;
         getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemon)));
-    } 
+    }
 }
 
 
 
 function backPokemon(i) {
-    if(i == 0) {
-        i = arrPokemon.length-1;
+    if (i == 0) {
+        i = arrPokemon.length - 1;
         getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemon)));
     } else {
         i--;
