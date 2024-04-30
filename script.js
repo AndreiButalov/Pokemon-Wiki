@@ -1,6 +1,11 @@
 let arrPokemon = [];
 
 async function init() {
+    await renderPokemon();
+    // renderChart();
+}
+
+async function renderPokemon() {
     let urlPokemon   = `https://pokeapi.co/api/v2/pokemon`;
     let response = await fetch(urlPokemon);
     let responseAsJson = await response.json();
@@ -60,7 +65,6 @@ function searchPokemon() {
     let input = document.getElementById('input').value;  
 
     for (let i = 0; i < arrPokemon.length; i++) {
-        console.log(arrPokemon[i]['name']);
         if (input.toLowerCase() == arrPokemon[i]['name']) {
              getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemon)))
         }else {
@@ -69,15 +73,15 @@ function searchPokemon() {
     }
     
     input.value = ''; 
-
 }
 
 
 function getPokemonProfil(i, arr) {
     
-    arr =  JSON.parse(decodeURIComponent(arr));    
+    arr = JSON.parse(decodeURIComponent(arr));    
 
     obj = arr[i];
+
     let showPokemon = document.getElementById('show_pokemon');
     showPokemon.style.visibility = 'initial';
 
@@ -97,12 +101,60 @@ function getPokemonProfil(i, arr) {
                 
                 <img src="${obj['sprites']['other']['dream_world']['front_default']}">
             </div>
+            <div class="show_pokemon_container">
+            <div class="content_links">
+                <a href="#">About</a>
+                <a href="#">Base Status</a>
+            </div>
             <div class="show_pokemon_content">
-            
-            </div>                  
+                <div>
+                    <table>
+                        <tr>
+                            <td>Typ</td>
+                            <td>${obj['types'][0]['type']['name']}</td>                       
+                        </tr>
+                        <tr>
+                            <td>Height</td>
+                            <td>${obj['height']}</td>
+                        </tr>
+                        <tr>
+                            <td>Weght</td>
+                            <td>${obj['weight']/10} kg</td>
+                        </tr>
+                        <tr>
+                            <td>Abilites</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <h1>Breeding</h1>
+                    <table>
+                        <tr>
+                            <td>Species</td>
+                            <td></td>                       
+                        </tr>
+                        <tr>
+                            <td>Height</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Weght</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Abilites</td>
+                            <td></td>
+                        </tr>
+                    </table>
+
+                </div>
+                <!-- <div>
+                    <canvas id="myChart"></canvas>
+                </div>  -->
+            </div>
+        </div>          
         </div>
     `;
-
+//generateShowContent(i, encodeURIComponent(JSON.stringify(arr)))
     let show_pokemon_poison = document.getElementById('show_pokemon_poison');
 
     if (obj['types'].length == 2) {
@@ -113,6 +165,66 @@ function getPokemonProfil(i, arr) {
 
     let show_pokemon_backgroung = document.getElementById('show_pokemon_backgroung');
     backgroundColor(obj, show_pokemon_backgroung);
+}
+
+
+function generateShowContent(i, arr) {
+    arr = JSON.parse(decodeURIComponent(arr));
+
+    console.log(arr);
+    return /*html*/`
+        <div class="show_pokemon_container">
+            <div class="content_links">
+                <a href="#">About</a>
+                <a href="#">Base Status</a>
+            </div>
+            <div class="show_pokemon_content">
+                <div>
+                    <table>
+                        <tr>
+                            <td>Species</td>
+                            <td></td>                       
+                        </tr>
+                        <tr>
+                            <td>Height</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Weght</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Abilites</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <h1>Breeding</h1>
+                    <table>
+                        <tr>
+                            <td>Species</td>
+                            <td></td>                       
+                        </tr>
+                        <tr>
+                            <td>Height</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Weght</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Abilites</td>
+                            <td></td>
+                        </tr>
+                    </table>
+
+                </div>
+                <!-- <div>
+                    <canvas id="myChart"></canvas>
+                </div>  -->
+            </div>
+        </div> 
+    `;
 }
 
 
