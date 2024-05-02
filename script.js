@@ -154,7 +154,7 @@ function getPokemonProfil(i, arr) {
         </div>          
         </div>
     `;
-//generateShowContent(i, encodeURIComponent(JSON.stringify(arr)))
+    
     let show_pokemon_poison = document.getElementById('show_pokemon_poison');
 
     if (obj['types'].length == 2) {
