@@ -7,13 +7,14 @@ body {
     margin: 60px 0;
     max-width: 400px;
     width: 80%;
+    filter: drop-shadow(7px 7px 4px rgba(0, 0, 0, 0.8));
 }
 
 .start_app {
     width: 250px;
     height: 200px;
     border-radius: 10px;  
-    cursor: pointer;
+    cursor: pointer;    
 }
 
 .start_app:hover {
@@ -21,8 +22,20 @@ body {
 }
 
 .d_none {
-    visibility: hidden;
+    display: none;
 }
+
+.d_initial {
+    display: initial;
+}
+
+.base_status {
+    display: none;
+    width: 200px;
+    height: 200px;
+}
+
+
 
 .content {
     width: 90%;
@@ -82,7 +95,8 @@ body {
     width: 90px;
     bottom: 10px;
     right: 10px;
-    color: lightsalmon
+    color: lightsalmon;
+    filter: drop-shadow(7px 7px 4px rgba(0, 0, 0, 0.8));
 }
 
 .show_pokemon_background {
@@ -162,6 +176,7 @@ body {
     padding-top: 30px;
     /* margin-top: 90px; */
     margin-right: 50px;
+    filter: drop-shadow(10px 7px 10px rgba(0, 0, 0, 0.8));
 }
 
 .show_pokemon_container {
@@ -214,7 +229,8 @@ body {
 }
 
 .show_pokemon_content table {
-    width: 320px;
+    max-width: 320px;
+    width: 50%;
     border-spacing: 10px;
     font-size: 20px;
     text-align: start;

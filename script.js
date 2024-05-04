@@ -101,7 +101,8 @@ function getPokemonProfil(i, arr) {
                 <img src="${obj['sprites']['other']['dream_world']['front_default']}">
             </div>
             
-            ${generateShowContent(i, encodeURIComponent(JSON.stringify(arr)))}
+            ${generateAboutContent(i, encodeURIComponent(JSON.stringify(arr)))}
+            
         </div>          
     `;
     let show_pokemon_poison = document.getElementById('show_pokemon_poison');
@@ -117,17 +118,24 @@ function getPokemonProfil(i, arr) {
 }
 
 
-function generateShowContent(i, arr) {
+function generateAboutContent(i, arr) {
     arr = JSON.parse(decodeURIComponent(arr));
     obj = arr[i];
 
     return /*html*/ `
         <div class="show_pokemon_container">
             <div class="content_links">
-                <a href="#">About</a>
-                <a href="#">Base Status</a>
+                <a href="#" onclick="getAbout()">About</a>
+                <a href="#" onclick="getBaseStatus()">Base Status</a>
             </div>
-            <div class="show_pokemon_content">
+            <div class="base_status" id="base_status">
+                <h1>Hallo</h1>
+                <img src="./img/Pokédex_logo.png" alt="">
+                <!-- <div>
+                    <canvas id="myChart"></canvas>
+                </div>  -->
+            </div>
+            <div class="show_pokemon_content" id="show_pokemon_content">
                 <div>
                     <table>
                         <tr>
@@ -168,17 +176,32 @@ function generateShowContent(i, arr) {
                     </table>
 
                 </div>
-                <!-- <div>
-                    <canvas id="myChart"></canvas>
-                </div>  -->
+                
             </div>
         </div>
     `;
     
-    // let show_pokemon_poison = document.getElementById('show_pokemon_poison');
 
 }
 
+
+
+function getAbout() {
+    let showPokemonContent = document.getElementById('show_pokemon_content');
+    showPokemonContent.classList.remove('d_none');
+
+    let showBaseSatus = document.getElementById('base_status');
+    showBaseSatus.style.display = "none";
+}
+
+
+function getBaseStatus() {
+    let showPokemonContent = document.getElementById('show_pokemon_content');
+    showPokemonContent.classList.add('d_none');
+
+    let showBaseSatus = document.getElementById('base_status');
+    showBaseSatus.style.display = "block";
+}
 
 
 function closeWindow() {
