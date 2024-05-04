@@ -2,8 +2,9 @@ let arrPokemon = [];
 
 async function init() {
     await renderPokemon();
-    // renderChart();
+    renderChart();
 }
+
 
 async function renderPokemon() {
     let urlPokemon = `https://pokeapi.co/api/v2/pokemon`;
@@ -28,7 +29,6 @@ async function renderPokemon() {
         let startStyle = document.getElementById(`start${i}`);
 
         backgroundColor(json_pokemon, startStyle);
-
     }
 }
 
@@ -129,11 +129,9 @@ function generateAboutContent(i, arr) {
                 <a href="#" onclick="getBaseStatus()">Base Status</a>
             </div>
             <div class="base_status" id="base_status">
-                <h1>Hallo</h1>
-                <img src="./img/Pokédex_logo.png" alt="">
-                <!-- <div>
+                <div>
                     <canvas id="myChart"></canvas>
-                </div>  -->
+                </div> 
             </div>
             <div class="show_pokemon_content" id="show_pokemon_content">
                 <div>
@@ -261,4 +259,28 @@ function backPokemon(i) {
         i--;
         getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemon)));
     }
+}
+
+
+function renderChart() {
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
 }
