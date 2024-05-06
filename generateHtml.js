@@ -75,14 +75,6 @@ function generateHtmlAboutContentTable(i) {
                     <td>${obj['weight'] / 10} kg</td>
                 </tr>
                 <tr>
-                    <td class="bold">Abilites</td>
-                    <td>${getAbilities(i)}</td>
-                </tr>                    
-                <tr>
-                    <td class="bold">Location</td>
-                    <td>${pokemonLocations[i]}</td>                       
-                </tr>
-                <tr>
                     <td class="bold">HP</td>
                     <td>${arrPokemons[i]['stats'][0]['base_stat']}</td>                       
                 </tr>
@@ -90,6 +82,14 @@ function generateHtmlAboutContentTable(i) {
                     <td class="bold">Speed</td>
                     <td>${arrPokemons[i]['stats'][5]['base_stat']}</td>                       
                 </tr>                                    
+                <tr>
+                    <td class="bold">Abilites</td>
+                    <td>${getAbilities(i)}</td>
+                </tr>                    
+                <tr>
+                    <td class="bold">Location</td>
+                    <td>${pokemonLocations[i]}</td>                       
+                </tr>
             </table>`
 }
 
