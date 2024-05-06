@@ -8,6 +8,7 @@ async function renderPokemon() {
     let urlPokemon = `https://pokeapi.co/api/v2/pokemon`;
     let response = await fetch(urlPokemon);
     let responseAsJson = await response.json();
+    
     generateRenderPokemon(urlPokemon, responseAsJson);
 }
 
@@ -52,6 +53,7 @@ function generateChartPokemon(i) {
 
 function checkPoison(i, json_pokemon) {
     let poison = document.getElementById(`poison${i}`);
+
     if (json_pokemon['types'].length == 2) {
         poison.innerHTML = 'poison'
     } else {
@@ -63,6 +65,7 @@ function checkPoison(i, json_pokemon) {
 
 function searchPokemon() {
     let input = document.getElementById('input').value;
+
     for (let i = 0; i < arrPokemons.length; i++) {
         if (input.toLowerCase() == arrPokemons[i]['name']) {
             getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemons)))
@@ -76,11 +79,12 @@ function searchPokemon() {
 function getPokemonProfil(i, arr) {
     arr = JSON.parse(decodeURIComponent(arr));
     obj = arr[i];
+
     let showPokemon = document.getElementById('show_pokemon');
     showPokemon.style.visibility = 'initial';
     showPokemon.innerHTML = generateHtmlShowPokemon(i, arr)
-    let show_pokemon_poison = document.getElementById('show_pokemon_poison');
 
+    let show_pokemon_poison = document.getElementById('show_pokemon_poison');
     if (obj['types'].length == 2) {
         show_pokemon_poison.innerHTML = 'poison'
     } else {
@@ -97,6 +101,7 @@ function getPokemonProfil(i, arr) {
 function getAbilities(i) {
     let arr = arrPokemons[i]['abilities'];
     let arrString = [];
+
     for (let j = 0; j < arr.length; j++) {
         let abilityName = arr[j]['ability']['name'];
         arrString.push(" " + abilityName.capitalize())
@@ -108,6 +113,7 @@ function getAbilities(i) {
 function getType(i) {
     let arr = arrPokemons[i]['types'];
     let arrString = [];
+
     for (let j = 0; j < arr.length; j++) {
         let type = arr[j]['type']['name'];
         arrString.push(" " + type)
@@ -120,7 +126,9 @@ async function getLocation(i) {
     let urlPokemon = `https://pokeapi.co/api/v2/location/`;
     let response = await fetch(urlPokemon);
     let responseAsJson = await response.json();
+
     let cityName = await responseAsJson['results'][i]['name'];
+
     return cityName.capitalize();
 }
 
@@ -204,5 +212,3 @@ function backPokemon(i) {
         getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemons)));
     }
 }
-
-
