@@ -76,7 +76,6 @@ function searchPokemon() {
 function getPokemonProfil(i, arr) {
     arr = JSON.parse(decodeURIComponent(arr));
     obj = arr[i];
-
     let showPokemon = document.getElementById('show_pokemon');
     showPokemon.style.visibility = 'initial';
     showPokemon.innerHTML = generateHtmlShowPokemon(i, arr)
