@@ -235,3 +235,9 @@ body {
     font-size: 20px;
     text-align: start;
 }
+
+.base_status {
+    margin: 60px 30px 0 30px;
+    width: 90%;
+    height: 500px;
+}

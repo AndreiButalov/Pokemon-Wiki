@@ -1,11 +1,5 @@
 let arrPokemon = [];
 
-async function init() {
-    await renderPokemon();
-    renderChart();
-}
-
-
 async function renderPokemon() {
     let urlPokemon = `https://pokeapi.co/api/v2/pokemon`;
     let response = await fetch(urlPokemon);
@@ -30,6 +24,8 @@ async function renderPokemon() {
 
         backgroundColor(json_pokemon, startStyle);
     }
+
+    
 }
 
 
@@ -84,7 +80,8 @@ function getPokemonProfil(i, arr) {
 
     let showPokemon = document.getElementById('show_pokemon');
     showPokemon.style.visibility = 'initial';
-
+    
+    
     showPokemon.innerHTML = /*html*/ `
         <div class="show_pokemon" id="show_pokemon_backgroung">
             <div class="arrow_left"><button class=" arrow_button" onclick="backPokemon(${i})"><</button></div>
@@ -95,25 +92,26 @@ function getPokemonProfil(i, arr) {
                     <h1>${obj['name'].capitalize()}</h1>
                     <div class="show_pokemon_title">
                         <h2 class="show_pokemon_name">${obj['types'][0]['type']['name']}<h2>
-                        <div class="show_pokemon_name" id="show_pokemon_poison"></div>
-                    </div>
-                </div>                
-                <img src="${obj['sprites']['other']['dream_world']['front_default']}">
-            </div>
-            
-            ${generateAboutContent(i, encodeURIComponent(JSON.stringify(arr)))}
-            
-        </div>          
-    `;
-    let show_pokemon_poison = document.getElementById('show_pokemon_poison');
+                            <div class="show_pokemon_name" id="show_pokemon_poison"></div>
+                        </div>
+                    </div>                
+                    <img src="${obj['sprites']['other']['dream_world']['front_default']}">
+                </div>
 
+                ${generateAboutContent(i, encodeURIComponent(JSON.stringify(arr)))}
+                
+            </div>          
+            `;
+    let show_pokemon_poison = document.getElementById('show_pokemon_poison');
+    
     if (obj['types'].length == 2) {
         show_pokemon_poison.innerHTML = 'poison'
     } else {
         show_pokemon_poison.style = 'display: none;';
     }
-
+    
     let show_pokemon_backgroung = document.getElementById('show_pokemon_backgroung');
+    renderChart();
     backgroundColor(obj, show_pokemon_backgroung);
 }
 
@@ -150,13 +148,13 @@ function generateAboutContent(i, arr) {
                         </tr>
                         <tr>
                             <td>Abilites</td>
-                            <td></td>
+                            <td>${getAbilities(i)}</td>
                         </tr>
                     </table>
-                    <h1>Breeding</h1>
+                    <h1>Description</h1>
                     <table>
                         <tr>
-                            <td>Species</td>
+                            <td>Location</td>
                             <td></td>                       
                         </tr>
                         <tr>
@@ -178,10 +176,32 @@ function generateAboutContent(i, arr) {
             </div>
         </div>
     `;
-    
+
 
 }
 
+
+function getAbilities(i) {
+    let arr = arrPokemon[i]['abilities'];
+    let arrString = [];
+    for (let j = 0; j < arr.length; j++) {
+        let abilityName = arr[j]['ability']['name'];
+        arrString.push(" " + abilityName)      
+    }
+    return arrString;
+}
+
+
+// async function getLocation(i) {
+
+//     let urlPokemon = `https://pokeapi.co/api/v2/location/`;
+//     let response = await fetch(urlPokemon);
+//     let responseAsJson = await response.json();
+
+//     let cityName = await responseAsJson['results'][i]['name'];
+
+//     return cityName;
+// }
 
 
 function getAbout() {
@@ -262,25 +282,3 @@ function backPokemon(i) {
 }
 
 
-function renderChart() {
-    const ctx = document.getElementById('myChart');
-
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-}
