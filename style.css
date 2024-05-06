@@ -228,6 +228,10 @@ body {
     margin-top: 40px;
 }
 
+.show_pokemon_content h3 {
+    margin-left: 10px;
+}
+
 .show_pokemon_content table {
     max-width: 320px;
     width: 50%;
@@ -240,4 +244,11 @@ body {
     margin: 60px 30px 0 30px;
     width: 90%;
     height: 500px;
+}
+
+.chart-container {
+    /* height: 500px; */
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
 }

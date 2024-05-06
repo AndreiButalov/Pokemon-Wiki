@@ -1,4 +1,6 @@
-let arrPokemon = [];
+let arrPokemons = [];
+let pokemonLocations = [];
+let pokemonEggGroupes = [];
 
 async function renderPokemon() {
     let urlPokemon = `https://pokeapi.co/api/v2/pokemon`;
@@ -8,13 +10,31 @@ async function renderPokemon() {
     let post = document.getElementById('post');
     let results = responseAsJson['results'];
 
+
+
+
     for (let i = 0; i < results.length; i++) {
 
         let pokemon = `${urlPokemon}/${results[i]['name']}`;
         let pokemon_response = await fetch(pokemon);
         let json_pokemon = await pokemon_response.json();
+        
+        arrPokemons.push(json_pokemon);
+        // console.log(arrPokemons[i]['stats']);
 
-        arrPokemon.push(json_pokemon);
+        let hp = arrPokemons[i]['stats'][0]['base_stat'];
+        let attack = arrPokemons[i]['stats'][1]['base_stat'];
+        let defense = arrPokemons[i]['stats'][2]['base_stat'];
+        let spAttack = arrPokemons[i]['stats'][3]['base_stat'];
+        let spDefense = arrPokemons[i]['stats'][4]['base_stat'];
+        let speed = arrPokemons[i]['stats'][5]['base_stat'];
+
+        pokemonStatsHp.push(hp);
+        pokemonStatsAttack.push(attack);
+        pokemonStatsDefense.push(defense);
+        pokemonStatsSpAttack.push(spAttack);
+        pokemonStatsSpDefense.push(spDefense);
+        pokemonStatsSpeed.push(speed);
 
         post.innerHTML += generateInitPokemon(i, results);
 
@@ -22,11 +42,19 @@ async function renderPokemon() {
 
         let startStyle = document.getElementById(`start${i}`);
 
-        backgroundColor(json_pokemon, startStyle);
-    }
+        backgroundColor(json_pokemon, startStyle);       
 
+        pokemonLocations.push(await getLocation(i)); 
+        // renderPokemonChart(i);  
+        
+        
+        
+    } 
     
 }
+
+
+
 
 
 function checkPoison(i, json_pokemon) {
@@ -44,14 +72,14 @@ function checkPoison(i, json_pokemon) {
 function generateInitPokemon(i, results) {
 
     return `            
-        <div class="start_app" id="start${i}" onclick="getPokemonProfil(${i}, '${encodeURIComponent(JSON.stringify(arrPokemon))}')">
+        <div class="start_app" id="start${i}" onclick="getPokemonProfil(${i}, '${encodeURIComponent(JSON.stringify(arrPokemons))}')">
         <div class="pokemon_name">
             <h1>${results[i]['name'].capitalize()}</h1>
             <div class="pokemon_name_title">
-                <div class="pokemon_name_border">${arrPokemon[i]['types'][0]['type']['name']}</div>
+                <div class="pokemon_name_border">${arrPokemons[i]['types'][0]['type']['name']}</div>
                 <div class="pokemon_name_border" id="poison${i}"></div>   
             </div>                           
-            <img src="${arrPokemon[i]['sprites']['other']['dream_world']['front_default']}">
+            <img src="${arrPokemons[i]['sprites']['other']['dream_world']['front_default']}">
         </div>
     `;
 }
@@ -60,9 +88,9 @@ function generateInitPokemon(i, results) {
 function searchPokemon() {
     let input = document.getElementById('input').value;
 
-    for (let i = 0; i < arrPokemon.length; i++) {
-        if (input.toLowerCase() == arrPokemon[i]['name']) {
-            getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemon)))
+    for (let i = 0; i < arrPokemons.length; i++) {
+        if (input.toLowerCase() == arrPokemons[i]['name']) {
+            getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemons)))
         } else {
 
         }
@@ -111,7 +139,7 @@ function getPokemonProfil(i, arr) {
     }
     
     let show_pokemon_backgroung = document.getElementById('show_pokemon_backgroung');
-    renderChart();
+    renderChart(i);
     backgroundColor(obj, show_pokemon_backgroung);
 }
 
@@ -127,8 +155,8 @@ function generateAboutContent(i, arr) {
                 <a href="#" onclick="getBaseStatus()">Base Status</a>
             </div>
             <div class="base_status" id="base_status">
-                <div>
-                    <canvas id="myChart"></canvas>
+                <div class="chart-container" style="height:=400px">
+                    <canvas  id="myChart"></canvas>
                 </div> 
             </div>
             <div class="show_pokemon_content" id="show_pokemon_content">
@@ -151,24 +179,13 @@ function generateAboutContent(i, arr) {
                             <td>${getAbilities(i)}</td>
                         </tr>
                     </table>
-                    <h1>Description</h1>
+                    <h3>Description</h3>
                     <table>
                         <tr>
                             <td>Location</td>
-                            <td></td>                       
+                            <td>${pokemonLocations[i]}</td>                       
                         </tr>
-                        <tr>
-                            <td>Height</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Weght</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Abilites</td>
-                            <td></td>
-                        </tr>
+                        
                     </table>
 
                 </div>
@@ -182,25 +199,49 @@ function generateAboutContent(i, arr) {
 
 
 function getAbilities(i) {
-    let arr = arrPokemon[i]['abilities'];
+    let arr = arrPokemons[i]['abilities'];
     let arrString = [];
     for (let j = 0; j < arr.length; j++) {
         let abilityName = arr[j]['ability']['name'];
-        arrString.push(" " + abilityName)      
+        arrString.push(" " + abilityName.capitalize())      
     }
     return arrString;
 }
 
 
-// async function getLocation(i) {
+async function getLocation(i) {
+    let urlPokemon = `https://pokeapi.co/api/v2/location/`;
+    let response = await fetch(urlPokemon);
+    let responseAsJson = await response.json();
+    let cityName = await responseAsJson['results'][i]['name'];
+    return cityName.capitalize();
+}
 
-//     let urlPokemon = `https://pokeapi.co/api/v2/location/`;
-//     let response = await fetch(urlPokemon);
+
+// async function getEggGroupe(i) {
+//     let urlPokemon = `https://pokeapi.co/api/v2/egg-group/`;    
+   
+//     // let one = `${urlPokemon}${arrPokemon[i]['id']}`;
+//     let one = urlPokemon;
+//     let response = await fetch(one);
 //     let responseAsJson = await response.json();
 
-//     let cityName = await responseAsJson['results'][i]['name'];
+//     let eggGroup = await responseAsJson['results'][i]['name'];
 
-//     return cityName;
+//     console.log(eggGroup)
+
+//     // pokemonEggGroupes.push(eggGroup);
+
+//     // let name = responseAsJson['chain']['evolves_to'][0]['species']['name'];
+
+
+//     // pokemonEvolutionName.push(name);
+
+//     // console.log(responseAsJson['results'][i]['name'])
+//     // console.log(responseAsJson['chain']['evolves_to'][0]['species']['name'])
+
+
+//     // return cityName.capitalize();
 // }
 
 
@@ -260,12 +301,12 @@ function backgroundColor(json_pokemon, id) {
 
 
 function nextPokemon(i) {
-    if (i == (arrPokemon.length - 1)) {
+    if (i == (arrPokemons.length - 1)) {
         i = 0;
-        getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemon)));
+        getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemons)));
     } else {
         i++;
-        getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemon)));
+        getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemons)));
     }
 }
 
@@ -273,11 +314,11 @@ function nextPokemon(i) {
 
 function backPokemon(i) {
     if (i == 0) {
-        i = arrPokemon.length - 1;
-        getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemon)));
+        i = arrPokemons.length - 1;
+        getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemons)));
     } else {
         i--;
-        getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemon)));
+        getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemons)));
     }
 }
 
