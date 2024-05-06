@@ -154,6 +154,8 @@ body {
   font-weight: bold;
   border-radius: 50%;
   background-color: white;
+  cursor: pointer;
+  border: 1px solid black;
 }
 
 .show_pokemon {
@@ -184,11 +186,13 @@ body {
   height: 40px;
   font-size: 24px;
   font-weight: bold;
-  border: 0;
+  border: 1px solid black;
   border-radius: 50%;
   position: absolute;
+  background-color: white;
   right: 15px;
   top: 15px;
+  cursor: pointer;
 }
 
 .show_pokemon_headline img {
@@ -198,17 +202,14 @@ body {
   height: 40%;
   position: absolute;
   top: 45px;
-  right: 30px;
+  right: 45px;
   filter: drop-shadow(10px 7px 10px rgba(0, 0, 0, 0.8));
 }
 
 .show_pokemon_container {
   height: 60%;
   background-color: white;
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+  border-radius: 30px;
 }
 
 .show_pokemon_title {
@@ -297,7 +298,7 @@ body {
   }
 
   .show_pokemon_headline img {
-    top: 100px;
+    top: 90px;
     right: 10px;
   }
 
