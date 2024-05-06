@@ -5,21 +5,6 @@ let pokemonStatsSpAttack = [];
 let pokemonStatsSpDefense = [];
 let pokemonStatsSpeed = [];
 
-let labels = [];
-
-function renderPokemonChart(i) {         
-
-    labels.push(pokemonStatsHp[i])
-    labels.push(pokemonStatsAttack[i])
-    labels.push(pokemonStatsDefense[i])
-    labels.push(pokemonStatsSpAttack[i])
-    labels.push(pokemonStatsSpDefense[i])
-    labels.push(pokemonStatsSpeed[i])
-
-    console.log(labels)
-}
-
-
 function renderChart(i) {
     const ctx = document.getElementById('myChart');
 
@@ -28,8 +13,24 @@ function renderChart(i) {
         data: {
             labels: ['hp', 'attack', 'defense', 'sp.attack', 'sp.defence', 'speed'],
             datasets: [{
-                label: '# of Votes',
+                label: 'Status',
                 data: [pokemonStatsHp[i], pokemonStatsAttack[i], pokemonStatsDefense[i], pokemonStatsSpAttack[i], pokemonStatsSpDefense[i], pokemonStatsSpeed[i]],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)'
+                  ],
+                  borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)'
+                  ],
                 borderWidth: 1
             }]
         },
