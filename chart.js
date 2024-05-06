@@ -35,11 +35,21 @@ function renderChart(i) {
             }]
         },
         options: {
+            maintainAspectRatio: false,
             scales: {
-                y: {
-                    beginAtZero: true
+              y: {
+                stacked: true,
+                grid: {
+                  display: true,
+                  color: "rgba(255,99,132,0.2)"
                 }
+              },
+              x: {
+                grid: {
+                  display: false
+                }
+              }
             }
-        }
+          }
     });
 }

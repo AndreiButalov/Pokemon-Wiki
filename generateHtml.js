@@ -8,13 +8,12 @@ function generateAboutContent(i, arr) {
                     <a href="#" onclick="getBaseStatus()">Base Status</a>
                 </div>
                 <div class="base_status" id="base_status">
-                    <div class="chart-container" style="height:=400px">
+                    <div class="chart-container">
                         <canvas  id="myChart"></canvas>
                     </div> 
                 </div>
                 <div class="show_pokemon_content" id="show_pokemon_content">
                     <div>
-                        <h3>Description</h3>
                         ${generateHtmlAboutContentTable(i)}
                     </div>                
                 </div>
@@ -34,8 +33,8 @@ function generateHtmlShowPokemon(i, arr) {
                 <h1>${obj['name'].capitalize()}</h1>
                 <div class="show_pokemon_title">
                     <h2 class="show_pokemon_name">${obj['types'][0]['type']['name']}<h2>
-                        <div class="show_pokemon_name" id="show_pokemon_poison"></div>
-                    </div>
+                    <div class="show_pokemon_name" id="show_pokemon_poison"></div>
+                </div>
                 </div>                
                 <img src="${obj['sprites']['other']['dream_world']['front_default']}">
             </div>
