@@ -22,7 +22,6 @@ async function generateRenderPokemon(urlPokemon, responseAsJson) {
         let json_pokemon = await pokemon_response.json();
         arrPokemons.push(json_pokemon);
         post.innerHTML += generateInitPokemon(i, results);
-
         let startStyle = document.getElementById(`start${i}`);
 
         checkPoison(i, json_pokemon);
@@ -106,6 +105,16 @@ function getAbilities(i) {
     return arrString;
 }
 
+
+function getType(i) {
+    let arr = arrPokemons[i]['types'];
+    let arrString = [];
+    for (let j = 0; j < arr.length; j++) {
+        let type = arr[j]['type']['name'];
+        arrString.push(" " + type)
+    }
+    return arrString;
+}
 
 
 async function getLocation(i) {

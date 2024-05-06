@@ -1,38 +1,3 @@
-function generateHtmlAboutContentTable(i) {
-    return `<table>
-                <tr>
-                    <td class="bold">Typ</td>
-                    <td>${obj['types'][0]['type']['name']}</td>                       
-                </tr>
-                <tr>
-                    <td class="bold">Height</td>
-                    <td>${obj['height']}</td>
-                </tr>
-                <tr>
-                    <td class="bold">Weght</td>
-                    <td>${obj['weight'] / 10} kg</td>
-                </tr>
-                <tr>
-                    <td class="bold">Abilites</td>
-                    <td>${getAbilities(i)}</td>
-                </tr>                    
-                <tr>
-                    <td class="bold">Location</td>
-                    <td>${pokemonLocations[i]}</td>                       
-                </tr>
-                <tr>
-                    <td class="bold">HP</td>
-                    <td>${arrPokemons[i]['stats'][0]['base_stat']}</td>                       
-                </tr>
-                <tr>
-                    <td class="bold">Speed</td>
-                    <td>${arrPokemons[i]['stats'][5]['base_stat']}</td>                       
-                </tr>    
-            </table>`
-}
-
-
-
 function generateAboutContent(i, arr) {
     arr = JSON.parse(decodeURIComponent(arr));
     obj = arr[i];
@@ -93,3 +58,40 @@ function generateInitPokemon(i, results) {
         </div>
     `;
 }
+
+
+
+function generateHtmlAboutContentTable(i) {
+    return `<table>
+                <tr>
+                    <td class="bold">Type</td>
+                    <td>${getType(i)}</td>                       
+                </tr>
+                <tr>
+                    <td class="bold">Height</td>
+                    <td>${obj['height']}</td>
+                </tr>
+                <tr>
+                    <td class="bold">Weght</td>
+                    <td>${obj['weight'] / 10} kg</td>
+                </tr>
+                <tr>
+                    <td class="bold">Abilites</td>
+                    <td>${getAbilities(i)}</td>
+                </tr>                    
+                <tr>
+                    <td class="bold">Location</td>
+                    <td>${pokemonLocations[i]}</td>                       
+                </tr>
+                <tr>
+                    <td class="bold">HP</td>
+                    <td>${arrPokemons[i]['stats'][0]['base_stat']}</td>                       
+                </tr>
+                <tr>
+                    <td class="bold">Speed</td>
+                    <td>${arrPokemons[i]['stats'][5]['base_stat']}</td>                       
+                </tr>                                    
+            </table>`
+}
+
+
