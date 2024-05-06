@@ -4,7 +4,7 @@ body {
 }
 
 .logo {
-  margin: 60px 0;
+  margin: 60px 0 30px;
   max-width: 400px;
   width: 80%;
   filter: drop-shadow(7px 7px 4px rgba(0, 0, 0, 0.8));
