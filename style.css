@@ -56,6 +56,23 @@ body {
     margin: 30px 0;
 }
 
+.input input {
+    border: 3px solid rgb(21, 3, 184);
+    border-radius: 16px;
+    border-color: rgb(21, 3, 184);
+    font-size: 20px;
+    padding-left: 20px;
+    caret-color: red;
+}
+
+.input button {
+    border: 3px solid rgb(21, 3, 184);
+    border-radius: 16px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: white;
+}
+
 .pokemon_name {
     color: white;
     font-weight: bold;
@@ -205,16 +222,17 @@ body {
 
 .content_links a {
     text-decoration: none;
-    color: rgba(0, 0, 0, 0.6);
+    color: rgba(0, 0, 0, 0.5);
     font-weight: bold;
     font-size: 22px;
     cursor: pointer;
     margin-right: 50px;
+    height: 50px;
 }
 
 .content_links a:hover {
-    color: rgba(0, 0, 0, 0.5);
-    text-decoration: underline;
+    color: black;
+    box-shadow: 0px 6px 0px -1px rgb(21, 3, 184);
 }
 
 .content_links {
@@ -243,8 +261,9 @@ body {
 
 .base_status {
     margin: 60px 30px 0 30px;
+    max-width: 600px;
     width: 90%;
-    height: 500px;
+    /* height: 500px; */
 }
 
 .chart-container {
@@ -257,3 +276,4 @@ body {
 .bold {
     font-weight: bold;
 }
+
