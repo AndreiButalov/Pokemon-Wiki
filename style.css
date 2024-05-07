@@ -173,7 +173,7 @@ body {
 }
 
 .show_pokemon_headline h1 {
-    font-size: clamp(32px, 7vw, 62px);
+    font-size: clamp(32px, 7vw, 55px);
     margin-left: 30px;
     padding-top: 90px;
     color: white;
