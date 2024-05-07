@@ -1,19 +1,19 @@
 let arrPokemons = [];
 let pokemonLocations = [];
 let pokemonEggGroupes = [];
+const urlPokemon = `https://pokeapi.co/api/v2/pokemon`;
 
 
 
 async function renderPokemon() {
-    let urlPokemon = `https://pokeapi.co/api/v2/pokemon`;
     let response = await fetch(urlPokemon);
     let responseAsJson = await response.json();
-    generateRenderPokemon(urlPokemon, responseAsJson);
+    generateRenderPokemon(responseAsJson);
 }
 
 
 
-async function generateRenderPokemon(urlPokemon, responseAsJson) {
+async function generateRenderPokemon(responseAsJson) {
     let post = document.getElementById('post');
     let results = responseAsJson['results'];
 

@@ -82,8 +82,6 @@ function generateHtmlAboutContentTable(i) {
                     <td class="bold">Speed</td>
                     <td>${arrPokemons[i]['stats'][5]['base_stat']}</td>                       
                 </tr>
-            </table>
-            <table>
                 <tr>
                     <td class="bold">Abilites</td>
                     <td>${getAbilities(i)}</td>

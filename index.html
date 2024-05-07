@@ -17,8 +17,8 @@
        <div class="container" id="container">
             <img class="logo" src="./img/Pokédex_logo.png" alt="">
             <div class="input">
-                <input type="text" id="input">
-                <button onclick="searchPokemon()">Suchen</button>
+                <input type="text" id="input" onkeydown="searchPokemon()">
+                <button onchange="searchPokemon()">Suchen</button>
             </div>
             <div  class="content" id="post"></div>
         </div> 

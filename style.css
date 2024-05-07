@@ -136,13 +136,13 @@ body {
 
 .arrow_left {
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 1%;
 }
 
 .arrow_right {
     position: absolute;
-    top: 50%;
+    top: 45%;
     right: 1%;
 }
 
@@ -320,5 +320,16 @@ body {
 
     .input button {
         width: 100px;
+    }
+}
+
+@media (max-width: 400px) {
+    .show_pokemon_headline img {
+        top: 40px;
+        right: 10px;
+    }
+
+    .show_pokemon_headline h1 {
+        padding-top: 50px;
     }
 }
