@@ -12,6 +12,7 @@ async function renderPokemon() {
 }
 
 
+
 async function generateRenderPokemon(urlPokemon, responseAsJson) {
     let post = document.getElementById('post');
     let results = responseAsJson['results'];
@@ -30,6 +31,7 @@ async function generateRenderPokemon(urlPokemon, responseAsJson) {
         pokemonLocations.push(await getLocation(i));
     }
 }
+
 
 
 function generateChartPokemon(i) {
@@ -63,11 +65,13 @@ function checkPoison(i, json_pokemon) {
 
 function searchPokemon() {
     let input = document.getElementById('input').value;
+    
     for (let i = 0; i < arrPokemons.length; i++) {
         if (input.toLowerCase() == arrPokemons[i]['name']) {
             getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemons)))
         }
     }
+    
     input.value = '';
 }
 
@@ -106,6 +110,7 @@ function getAbilities(i) {
 }
 
 
+
 function getType(i) {
     let arr = arrPokemons[i]['types'];
     let arrString = [];
@@ -115,6 +120,7 @@ function getType(i) {
     }
     return arrString;
 }
+
 
 
 async function getLocation(i) {
