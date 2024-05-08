@@ -35,8 +35,10 @@ function generateHtmlShowPokemon(i, arr) {
                     <h2 class="show_pokemon_name">${obj['types'][0]['type']['name']}<h2>
                     <div class="show_pokemon_name" id="show_pokemon_poison"></div>
                 </div>
+                </div>
+                <div class="show_pokemon_title_img">
+                    <img class="show_pokemon_image" src="${obj['sprites']['other']['dream_world']['front_default']}">
                 </div>                
-                <img src="${obj['sprites']['other']['dream_world']['front_default']}">
             </div>
             ${generateAboutContent(i, encodeURIComponent(JSON.stringify(arr)))}            
     </div>`;

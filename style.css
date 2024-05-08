@@ -170,12 +170,13 @@ body {
     height: 40%;
     display: flex;
     justify-content: start;
+    flex-direction: column;
 }
 
 .show_pokemon_headline h1 {
     font-size: clamp(32px, 7vw, 55px);
-    margin-left: 30px;
-    padding-top: 90px;
+    margin-left: 40px;
+    padding-top: 50px;
     color: white;
     margin-block-start: 0;
     margin-block-end: 0;
@@ -195,14 +196,17 @@ body {
     cursor: pointer;
 }
 
-.show_pokemon_headline img {
-    max-height: 320px;
-    max-width: 200px;
-    width: 40%;
-    height: 40%;
+.show_pokemon_title_img {
+    display: flex;
     position: absolute;
-    top: 55px;
-    right: 35px;
+    top: 27%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.show_pokemon_image {
+    max-height: 250px;
+    height: 90%;
     filter: drop-shadow(10px 7px 10px rgba(0, 0, 0, 0.8));
 }
 
@@ -223,7 +227,7 @@ body {
 }
 
 .show_pokemon_name {
-    font-size: clamp(12px, 8vw, 22px);
+    font-size: clamp(12px, 4vw, 22px);
     border: 1px solid white;
     padding: 3px 10px;
     border-radius: 18px;
@@ -290,23 +294,21 @@ body {
 }
 
 @media (max-width: 500px) {
-    .show_pokemon_title {
-        flex-direction: column;
-        gap: 0;
-        align-items: start;
-    }
-
-    .show_pokemon_title h2 {
-        margin-block-end: 0;
-    }
-
-    .show_pokemon_headline img {
-        top: 90px;
-        right: 10px;
-    }
-
     .show_pokemon_content {
         padding: 0 40px 0 40px;
+    }
+}
+
+@media (max-width: 375px) {
+    .show_pokemon_title_img {
+        top: 25%;
+        left: 70%;
+    }
+
+    .show_pokemon_image {
+        max-width: 250px;
+        width: 100%;
+        margin-left: 20px;
     }
 }
 
@@ -323,13 +325,15 @@ body {
     }
 }
 
-@media (max-width: 400px) {
-    .show_pokemon_headline img {
-        top: 40px;
-        right: 10px;
+@media (max-width: 374px) {
+    .show_pokemon_title_img {
+        top: 30%;
+        left: 50%;
     }
 
-    .show_pokemon_headline h1 {
-        padding-top: 50px;
+    .show_pokemon_image {
+        max-width: 250px;
+        width: 100%;
+        margin-left: 0px; 
     }
 }
