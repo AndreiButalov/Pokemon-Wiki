@@ -34,7 +34,14 @@ function renderChart(i) {
             labels: arrLabels,
             datasets: [{
                 label: 'Status',
-                data: [pokemonStatsHp[i], pokemonStatsAttack[i], pokemonStatsDefense[i], pokemonStatsSpAttack[i], pokemonStatsSpDefense[i], pokemonStatsSpeed[i]],
+                data: [
+                    pokemonStatsHp[i],
+                    pokemonStatsAttack[i],
+                    pokemonStatsDefense[i],
+                    pokemonStatsSpAttack[i],
+                    pokemonStatsSpDefense[i],
+                    pokemonStatsSpeed[i]
+                ],
                 backgroundColor: arrBackgroundColor,
                 borderColor: arrBorderColor,
                 borderWidth: 1
