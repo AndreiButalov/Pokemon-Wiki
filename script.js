@@ -64,15 +64,17 @@ function checkPoison(i, json_pokemon) {
 
 
 function searchPokemon() {
-    let input = document.getElementById('input').value;
-    
+    let input = document.getElementById('input');
+    let searchTerm = input.value.trim().toLowerCase();
+
     for (let i = 0; i < arrPokemons.length; i++) {
-        if (input.toLowerCase() == arrPokemons[i]['name']) {
-            getPokemonProfil(i, encodeURIComponent(JSON.stringify(arrPokemons)))
-        }
+        let card = document.getElementById(`start${i}`);
+        if (!card) continue;
+
+        let pokemonName = arrPokemons[i]['name'].toLowerCase();
+        let matches = searchTerm === '' ? true : pokemonName.startsWith(searchTerm);
+        card.style.display = matches ? 'block' : 'none';
     }
-    
-    input.value = '';
 }
 
 
