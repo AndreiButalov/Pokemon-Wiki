@@ -18,9 +18,12 @@
             <img class="logo" src="./img/Pokédex_logo.png" alt="">
             <div class="input">
                 <input type="text" id="input" oninput="searchPokemon()" placeholder="Suche nach Pokémon">
-                <button onclick="searchPokemon()">Suchen</button>
+                <button class="btn_group" onclick="searchPokemon()">Suchen</button>
             </div>
-            <div  class="content" id="post"></div>
+            <div class="content" id="post"></div>
+            <div class="footer">
+                <button class="btn_group" id="loadMoreBtn" onclick="loadMorePokemons()">Weitere 20 Pokémon laden</button>
+            </div>
         </div> 
     </div>
     

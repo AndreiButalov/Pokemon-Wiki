@@ -2,13 +2,40 @@ let arrPokemons = [];
 let pokemonLocations = [];
 let pokemonEggGroupes = [];
 const urlPokemon = `https://pokeapi.co/api/v2/pokemon`;
+let nextPokemonUrl = null;
+let isLoading = false;
 
 
 
 async function renderPokemon() {
-    let response = await fetch(urlPokemon);
+    await loadPokemonBatch(`${urlPokemon}?limit=20&offset=0`);
+}
+
+
+
+async function loadMorePokemons() {
+    if (isLoading || !nextPokemonUrl) return;
+    await loadPokemonBatch(nextPokemonUrl);
+}
+
+
+
+async function loadPokemonBatch(url) {
+    if (isLoading) return;
+    isLoading = true;
+
+    let response = await fetch(url);
     let responseAsJson = await response.json();
-    generateRenderPokemon(responseAsJson);
+    nextPokemonUrl = responseAsJson.next;
+    await generateRenderPokemon(responseAsJson);
+
+    let loadMoreBtn = document.getElementById('loadMoreBtn');
+    if (loadMoreBtn) {
+        loadMoreBtn.disabled = !nextPokemonUrl;
+        loadMoreBtn.textContent = nextPokemonUrl ? 'Weitere 20 Pokémon laden' : 'Keine weiteren Pokémon';
+    }
+
+    isLoading = false;
 }
 
 
@@ -16,19 +43,29 @@ async function renderPokemon() {
 async function generateRenderPokemon(responseAsJson) {
     let post = document.getElementById('post');
     let results = responseAsJson['results'];
+    let startIndex = arrPokemons.length;
+    let html = '';
 
-    for (let i = 0; i < results.length; i++) {
-        let pokemon = `${urlPokemon}/${results[i]['name']}`;
-        let pokemon_response = await fetch(pokemon);
+    for (let index = 0; index < results.length; index++) {
+        let result = results[index];
+        let pokemon_response = await fetch(`${urlPokemon}/${result['name']}`);
         let json_pokemon = await pokemon_response.json();
-        arrPokemons.push(json_pokemon);
-        post.innerHTML += generateInitPokemon(i, results);
-        let startStyle = document.getElementById(`start${i}`);
 
-        checkPoison(i, json_pokemon);
-        generateChartPokemon(i);
+        arrPokemons.push(json_pokemon);
+        html += generateInitPokemon(startIndex + index, result['name'], json_pokemon);
+    }
+
+    post.insertAdjacentHTML('beforeend', html);
+
+    for (let index = 0; index < results.length; index++) {
+        let pokemonIndex = startIndex + index;
+        let startStyle = document.getElementById(`start${pokemonIndex}`);
+        let json_pokemon = arrPokemons[pokemonIndex];
+
+        checkPoison(pokemonIndex, json_pokemon);
+        generateChartPokemon(pokemonIndex);
         backgroundColor(json_pokemon, startStyle);
-        pokemonLocations.push(await getLocation(i));
+        pokemonLocations.push(await getLocation(pokemonIndex));
     }
 }
 
@@ -79,13 +116,12 @@ function searchPokemon() {
 
 
 
-function getPokemonProfil(i, arr) {
-    arr = JSON.parse(decodeURIComponent(arr));
-    obj = arr[i];
+function getPokemonProfil(i) {
+    let obj = arrPokemons[i];
 
     let showPokemon = document.getElementById('show_pokemon');
     showPokemon.style.visibility = 'initial';
-    showPokemon.innerHTML = generateHtmlShowPokemon(i, arr)
+    showPokemon.innerHTML = generateHtmlShowPokemon(i)
     let show_pokemon_poison = document.getElementById('show_pokemon_poison');
 
     if (obj['types'].length == 2) {
@@ -126,11 +162,20 @@ function getType(i) {
 
 
 async function getLocation(i) {
-    let urlPokemon = `https://pokeapi.co/api/v2/location/`;
-    let response = await fetch(urlPokemon);
-    let responseAsJson = await response.json();
-    let cityName = await responseAsJson['results'][i]['name'];
-    return cityName.capitalize();
+    try {
+        let urlPokemon = `https://pokeapi.co/api/v2/location/`;
+        let response = await fetch(urlPokemon);
+        let responseAsJson = await response.json();
+        let location = responseAsJson['results'][i];
+
+        if (!location || !location['name']) {
+            return 'Unknown';
+        }
+
+        return location['name'].capitalize();
+    } catch (error) {
+        return 'Unknown';
+    }
 }
 
 
